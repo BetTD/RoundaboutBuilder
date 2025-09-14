@@ -246,7 +246,12 @@ namespace RoundaboutBuilder.UI
             closeButton.eventClick += (c, p) =>
             {
                 enabled = false;
-                UIUtil.GetUuiButton().IsPressed = false;
+                
+                if (UIUtil.GetUuiButton() != null)
+                {
+                    UIUtil.GetUuiButton().IsPressed = false;
+                }
+
                 if (toolOnUI != null)
                 {
                     toolOnUI.enabled = false;
@@ -440,17 +445,19 @@ namespace RoundaboutBuilder.UI
             if (instance.toolOnUI != null && (instance.toolOnUI.enabled || (instance.enabled && m_panelOnUI.IsSpecialWindow)))
             {
                 instance.enabled = false;
-                UIUtil.GetUuiButton().IsPressed = false;
             }
             else if (instance.toolOnUI != null && instance.enabled)
             {
                 instance.toolOnUI.enabled = true;
-                UIUtil.GetUuiButton().IsPressed = true;
             }
             else
             {
                 instance.enabled = true;
-                UIUtil.GetUuiButton().IsPressed = true;
+            }
+
+            if (UIUtil.GetUuiButton() != null)
+            {
+                UIUtil.GetUuiButton().IsPressed = instance.enabled;
             }
         }
 

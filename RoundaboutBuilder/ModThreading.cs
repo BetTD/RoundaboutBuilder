@@ -30,6 +30,7 @@ namespace RoundaboutBuilder
 
         public override void OnUpdate(float realTimeDelta, float simulationTimeDelta)
         {
+            // if UnifiedUI Continued is not present, use the old hotkey handler
             if (!RoundAboutBuilder._isUsingUnifiedUI && RoundAboutBuilder.ModShortcut.IsPressed())
             {
                 // cancel if they key input was already processed in a previous frame
