@@ -1,7 +1,6 @@
 ﻿using ColossalFramework;
 using ColossalFramework.PlatformServices;
 using ColossalFramework.UI;
-using System;
 using UnityEngine;
 
 /* Version RELEASE 1.4.0+ */
@@ -67,7 +66,7 @@ namespace RoundaboutBuilder.UI
             name = "RAB_ToolOptionsPanel";
             atlas = ResourceLoader.GetAtlas("Ingame");
             backgroundSprite = "SubcategoriesPanel";
-            size = new Vector2(204, 180);
+            size = new Vector2(260, 180);
             absolutePosition = new Vector3(RoundAboutBuilder.savedWindowX.value, RoundAboutBuilder.savedWindowY.value);
 
             isVisible = false;
@@ -235,6 +234,7 @@ namespace RoundaboutBuilder.UI
             closeButton.eventClick += (c, p) =>
             {
                 enabled = false;
+                UIUtil.GetUuiButton().IsPressed = false;
                 if (toolOnUI != null)
                 {
                     toolOnUI.enabled = false;
@@ -428,14 +428,17 @@ namespace RoundaboutBuilder.UI
             if (instance.toolOnUI != null && (instance.toolOnUI.enabled || (instance.enabled && m_panelOnUI.IsSpecialWindow)))
             {
                 instance.enabled = false;
+                UIUtil.GetUuiButton().IsPressed = false;
             }
             else if (instance.toolOnUI != null && instance.enabled)
             {
                 instance.toolOnUI.enabled = true;
+                UIUtil.GetUuiButton().IsPressed = true;
             }
             else
             {
                 instance.enabled = true;
+                UIUtil.GetUuiButton().IsPressed = true;
             }
         }
 

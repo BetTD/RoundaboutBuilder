@@ -111,23 +111,23 @@ namespace RoundaboutBuilder.UI
                 {
                     switch (NetworkAnarchy.NetworkAnarchy.instance.mode)
                     {
-                        case NetworkAnarchy.Mode.Ground:
+                        case NetworkAnarchy.Modes.Ground:
                             return roadAI.m_info;
-                        case NetworkAnarchy.Mode.Elevated:
-                        case NetworkAnarchy.Mode.Bridge:
+                        case NetworkAnarchy.Modes.Elevated:
+                        case NetworkAnarchy.Modes.Bridge:
                             if (roadAI.m_elevatedInfo != null)
                             {
                                 return roadAI.m_elevatedInfo;
                             }
                             break;
-                        case NetworkAnarchy.Mode.Tunnel:
+                        case NetworkAnarchy.Modes.Tunnel:
                             if (roadAI.m_tunnelInfo != null)
                             {
                                 return roadAI.m_tunnelInfo;
                             }
                             break;
-                        case NetworkAnarchy.Mode.Normal:
-                        case NetworkAnarchy.Mode.Single:
+                        case NetworkAnarchy.Modes.Normal:
+                        case NetworkAnarchy.Modes.Single:
                             break;
                     }
                 }
@@ -141,23 +141,23 @@ namespace RoundaboutBuilder.UI
                 {
                     switch (NetworkAnarchy.NetworkAnarchy.instance.mode)
                     {
-                        case NetworkAnarchy.Mode.Ground:
+                        case NetworkAnarchy.Modes.Ground:
                             return pedestrianAI.m_info;
-                        case NetworkAnarchy.Mode.Elevated:
-                        case NetworkAnarchy.Mode.Bridge:
+                        case NetworkAnarchy.Modes.Elevated:
+                        case NetworkAnarchy.Modes.Bridge:
                             if (pedestrianAI.m_elevatedInfo != null)
                             {
                                 return pedestrianAI.m_elevatedInfo;
                             }
                             break;
-                        case NetworkAnarchy.Mode.Tunnel:
+                        case NetworkAnarchy.Modes.Tunnel:
                             if (pedestrianAI.m_tunnelInfo != null)
                             {
                                 return pedestrianAI.m_tunnelInfo;
                             }
                             break;
-                        case NetworkAnarchy.Mode.Normal:
-                        case NetworkAnarchy.Mode.Single:
+                        case NetworkAnarchy.Modes.Normal:
+                        case NetworkAnarchy.Modes.Single:
                             break;
                     }
                 }

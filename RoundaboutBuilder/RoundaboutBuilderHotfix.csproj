@@ -8,10 +8,11 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RoundaboutBuilder</RootNamespace>
-    <AssemblyName>RoundaboutBuilder</AssemblyName>
+    <AssemblyName>RoundaboutBuilderHotfix</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
     <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <Deterministic>false</Deterministic>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -37,27 +38,27 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="ColossalManaged, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
     </Reference>
     <Reference Include="CSUtil.Commons">
-      <HintPath>..\..\CSUtil.Commons.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\workshop\content\255710\1637663252\CSUtil.Commons.dll</HintPath>
     </Reference>
     <Reference Include="FineRoadTool">
-      <HintPath>..\..\FineRoadTool.dll</HintPath>
+      <HintPath>C:\Users\raulm\Downloads\1844442251\FineRoadTool.dll</HintPath>
     </Reference>
     <Reference Include="ICities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>..\..\Ionic.Zip.dll</HintPath>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="NetworkAnarchy">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\255710\2862881785\NetworkAnarchy.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\workshop\content\255710\2862881785\NetworkAnarchy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,10 +67,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="TrafficManager">
-      <HintPath>..\..\TrafficManager.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\workshop\content\255710\1637663252\TrafficManager.dll</HintPath>
+    </Reference>
+    <Reference Include="UnifiedUILib">
+      <HintPath>F:\SteamLibrary\steamapps\workshop\content\255710\2966990700\UnifiedUILib.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -107,12 +111,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.txt" />
+    <Content Include="Resources\UUI.png" />
     <EmbeddedResource Include="Resources\sprites.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
+  <!--<PropertyGroup>
     <PostBuildEvent>mkdir "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)"
 del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)\$(TargetFileName)"
 xcopy /y "$(TargetPath)" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)"</PostBuildEvent>
-  </PropertyGroup>
+  </PropertyGroup>-->
+  <ItemGroup>
+    <None Remove="Resources\UUI.png" />
+  </ItemGroup>
+
+  <Target Name="DeployToModDirectory" AfterTargets="Build">
+    <PropertyGroup>
+      <DeployDir>$(LOCALAPPDATA)/Colossal Order/Cities_Skylines/Addons/Mods/$(SolutionName)/</DeployDir>
+    </PropertyGroup>
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeployDir)" />
+    <Copy SourceFiles="$(TargetDir)/UnifiedUILib.dll" DestinationFolder="$(DeployDir)" />
+    <Copy SourceFiles="@(Content)" DestinationFolder="$(DeployDir)/Resources" />
+  </Target>
 </Project>

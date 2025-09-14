@@ -3,12 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnifiedUI.Helpers;
 using UnityEngine;
 
 namespace RoundaboutBuilder.UI
 {
     public static class UIUtil
     {
+        private static UUICustomButton uuiButton = null;
+        public static UUICustomButton GetUuiButton()
+        {
+            return uuiButton;
+        }
+
         /* The code below was copied from Fine Road Tool and More Shortcuts mod by SamsamTS. Thanks! */
 
         public static UICheckBox CreateCheckBox(UIComponent parent)
@@ -39,6 +46,37 @@ namespace RoundaboutBuilder.UI
             checkBox.playAudioEvents = true;
 
             return checkBox;
+        }
+
+        /// <summary>
+        /// Registers a new custom button with UnifiedUI Continued.
+        /// </summary>
+        public static void CreateUUIButton()
+        {
+            string iconPath = RoundAboutBuilder.Instance.GetFullPath("Resources", "UUI.png");
+            uuiButton = UUIHelpers.RegisterCustomButton(
+                name: "RoundaboutBuilder",
+                groupName: null,
+                tooltip: RoundAboutBuilder.Instance.Name,
+                icon: UUIHelpers.LoadTexture(iconPath),
+                onToggle: (value) =>
+                {
+                    UIWindow.instance.enabled = value;
+                },
+                hotkeys: new UUIHotKeys
+                {
+                    ActivationKey = RoundAboutBuilder.ModShortcut
+                });
+            Debug.Log("RAB: Registered UUICustomButton.");
+        }
+
+        /// <summary>
+        /// Destroys the UnifiedUI Continued tool button.
+        /// </summary>
+        public static void RemoveUUIButton()
+        {
+            UUIHelpers.Destroy(uuiButton.Button);
+            uuiButton = null;
         }
 
         public static UIButton CreateButton(UIComponent parent)

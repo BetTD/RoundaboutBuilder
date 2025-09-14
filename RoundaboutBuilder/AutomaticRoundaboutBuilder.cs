@@ -20,7 +20,7 @@ namespace RoundaboutBuilder
 {
     public class RoundAboutBuilder : IUserMod
     {
-        public static readonly string VERSION = "RELEASE 1.9.7";
+        public static readonly string VERSION = "1.9.7-hotfix1";
         public static PublishedFileId WORKSHOP_FILE_ID;
 
         public const string settingsFileName = "RoundaboutBuilder";
@@ -50,10 +50,15 @@ namespace RoundaboutBuilder
 
         //public static readonly SavedBool ShowUndoItAd = new SavedBool("showUndoItAd", RoundAboutBuilder.settingsFileName, true, true);
 
+        public static RoundAboutBuilder Instance;
+
         public static bool _settingsFailed = false;
+
+        public static bool _isUsingUnifiedUI = false;
 
         public RoundAboutBuilder()
         {
+            Instance = this;
             try
             {
                 // Creating setting file - from SamsamTS
@@ -72,7 +77,7 @@ namespace RoundaboutBuilder
 
         public string Name
         {
-            get { return "Roundabout Builder"; }
+            get { return "Roundabout Builder Hotfix"; }
         }
 
         public string Description
@@ -87,7 +92,7 @@ namespace RoundaboutBuilder
             // Probably useless
             try
             {
-                WORKSHOP_FILE_ID = new PublishedFileId(1625704117uL);
+                //WORKSHOP_FILE_ID = new PublishedFileId(1625704117uL);
             } catch
             {
                 Debug.Log("Error when assigning Workshop File ID");

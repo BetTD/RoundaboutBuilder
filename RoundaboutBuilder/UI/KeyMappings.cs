@@ -38,6 +38,7 @@ namespace RoundaboutBuilder.UI
             uilabel.text = label;
             uibutton.text = savedInputKey.ToLocalizedString("KEYNAME");
             uibutton.objectUserData = savedInputKey;
+            uibutton.eventVisibilityChanged += ButtonVisibilityChanged;
         }
 
         // Token: 0x06000025 RID: 37 RVA: 0x000037B6 File Offset: 0x000019B6
@@ -120,6 +121,14 @@ namespace RoundaboutBuilder.UI
                 return KeyCode.Mouse6;
             }
             return KeyCode.None;
+        }
+
+        private static void ButtonVisibilityChanged(UIComponent component, bool isVisible)
+        {
+            if (isVisible && component.objectUserData is SavedInputKey savedInputKey)
+            {
+                (component as UIButton).text = savedInputKey.ToLocalizedString("KEYNAME");
+            }
         }
 
         // Token: 0x0600002E RID: 46 RVA: 0x000038CC File Offset: 0x00001ACC

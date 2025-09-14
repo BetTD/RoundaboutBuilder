@@ -30,7 +30,7 @@ namespace RoundaboutBuilder
 
         public override void OnUpdate(float realTimeDelta, float simulationTimeDelta)
         {
-            if (RoundAboutBuilder.ModShortcut.IsPressed())
+            if (!RoundAboutBuilder._isUsingUnifiedUI && RoundAboutBuilder.ModShortcut.IsPressed())
             {
                 // cancel if they key input was already processed in a previous frame
 
@@ -41,8 +41,8 @@ namespace RoundaboutBuilder
 
                 if (UIWindow.instance == null) return;
 
-                //Activating/deactivating tool & UI
-                UIWindow.instance.Toggle();
+                // Activating/deactivating tool & UI
+                //UIWindow.instance.Toggle();
             }
             else if(UIWindow.instance.enabled)
             {

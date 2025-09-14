@@ -24,11 +24,13 @@ namespace RoundaboutBuilder
         public static bool fineRoadToolDetected = false;
         public static bool networkAnarchyDetected = false;
         public static bool undoItDetected = false;
+        public static bool unifiedUiDetected = false;
 
         public static readonly UInt64[] TMPE_IDs = { 583429740, 1637663252, 1806963141 };
         public static readonly UInt64[] FINE_ROAD_ANARCHY_IDs = { 651322972, 1844442251 };
         public static readonly UInt64[] NETWORK_ANARCHY_IDs = { 2862881785 };
         public static readonly UInt64[] UNO_IT_IDs = { 1890830956 };
+        public static readonly UInt64[] UNIFIED_UI_IDs = { 2966990700 };
 
         // called when level loading begins
         public void OnCreated(ILoading loading)
@@ -37,6 +39,8 @@ namespace RoundaboutBuilder
             tmpeDetected = false;
             fineRoadToolDetected = false;
             networkAnarchyDetected = false;
+            unifiedUiDetected = false;
+
             foreach (PluginManager.PluginInfo current in PluginManager.instance.GetPluginsInfo())
             {
                 //_string += current.name + " ";
@@ -57,6 +61,13 @@ namespace RoundaboutBuilder
                 {
                     undoItDetected = true;
                 }
+                // specifically check for UnifiedUI Continued as that's the mod that removed the built-in support for RAB
+                // @see https://github.com/ssv2/Skylines-UnifiedUI/commit/d4bc2ceaf0c91377abe4a5cd1e37d2d307e64e43
+                else if (!unifiedUiDetected && current.isEnabled && UNIFIED_UI_IDs.Contains(current.publishedFileID.AsUInt64))
+                {
+                    Debug.Log("RAB: UnifiedUI Continued detected!");
+                    unifiedUiDetected = true;
+                }
             }
 
             //Ads.Destroy();
@@ -66,7 +77,6 @@ namespace RoundaboutBuilder
         // called when level is loaded
         public void OnLevelLoaded(LoadMode mode)
         {
-
             //instatiate tools
             if (RoundaboutTool.Instance == null || EllipseTool.Instance == null)
             {
@@ -93,6 +103,14 @@ namespace RoundaboutBuilder
                     "Please report any bugs on the Steam Workshop page.");
             }
             RoundAboutBuilder.SeenUpdateMsg.value = true;*/
+
+            // we detected UUI Continued, register our own button
+            if (unifiedUiDetected)
+            {
+                // add UnifiedUI button
+                UIUtil.CreateUUIButton();
+                RoundAboutBuilder._isUsingUnifiedUI = true;
+            }
 
             LevelLoaded = true;
         }
@@ -122,6 +140,11 @@ namespace RoundaboutBuilder
                 UIWindow.instance.enabled = false;
             }
             LevelLoaded = false;
+
+            if (unifiedUiDetected)
+            {
+                UIUtil.RemoveUUIButton();
+            }
         }
 
         // called when unloading finished
