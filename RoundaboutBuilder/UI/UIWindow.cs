@@ -66,7 +66,7 @@ namespace RoundaboutBuilder.UI
             name = "RAB_ToolOptionsPanel";
             atlas = ResourceLoader.GetAtlas("Ingame");
             backgroundSprite = "SubcategoriesPanel";
-            size = new Vector2(260, 180);
+            size = new Vector2(290, 180);
             absolutePosition = new Vector3(RoundAboutBuilder.savedWindowX.value, RoundAboutBuilder.savedWindowY.value);
 
             isVisible = false;
@@ -121,16 +121,18 @@ namespace RoundaboutBuilder.UI
 
             float cummulativeHeight = 8;
 
-            /* Top section */
+            // top section - title bar
             m_topSection = AddUIComponent<UIPanel>();
             m_topSection.relativePosition = new Vector2(0, 0);
             m_topSection.SendToBack();
 
+            // title label
             UILabel label = m_topSection.AddUIComponent<UILabel>();
             label.textScale = 0.9f;
-            label.text = "Roundabout Builder";
+            label.text = "Roundabout Builder v" + RoundAboutBuilder.VERSION;
             label.relativePosition = new Vector2(8, cummulativeHeight);
             label.SendToBack();
+
             cummulativeHeight += label.height + 8;
 
             m_topSection.height = cummulativeHeight;
@@ -148,6 +150,8 @@ namespace RoundaboutBuilder.UI
             m_followTerrainSection = AddUIComponent<UIPanel>();
             m_followTerrainSection.width = 204f;
             m_followTerrainSection.clipChildren = true;
+
+            // "Level terrain" checkbox
             var chbFollowTerrain = UIUtil.CreateCheckBox(m_followTerrainSection);
             chbFollowTerrain.name = "RAB_followTerrain";
             chbFollowTerrain.label.text = "Level terrain";
@@ -156,14 +160,19 @@ namespace RoundaboutBuilder.UI
             chbFollowTerrain.relativePosition = new Vector3(8, 0);
             chbFollowTerrain.eventCheckChanged += (c, state) =>
             {
-                // Let's make it confusing - the variable and the chackbox will have opposite values
+                // Let's make it confusing - the variable and the checkbox will have opposite values
+                // this is because the saved setting controls whether the roundabout should follow the terrain,
+                // whereas within the UI, it's displayed as an option to level the terrain under the roundabout,
+                // thus NOT following the terrain.
                 SavedFollowTerrain.value = !state;
             };
             m_followTerrainSection.height = chbFollowTerrain.height + 8;
 
             m_setupTmpeSection = AddUIComponent<UIPanel>();
-            m_setupTmpeSection.width = 204f;
+            m_setupTmpeSection.width = width;
             m_setupTmpeSection.clipChildren = true;
+
+            // "Set up TMPE" checkbox
             var setupTmpe = UIUtil.CreateCheckBox(m_setupTmpeSection);
             setupTmpe.name = "RAB_setupTmpe";
             setupTmpe.label.text = "Set up TMPE";
@@ -174,6 +183,8 @@ namespace RoundaboutBuilder.UI
             {
                 SavedSetupTmpe.value = state;
             };
+
+            // Edit TMPE settings button
             var tmpeButton = UIUtil.CreateButton(m_setupTmpeSection);
             tmpeButton.text = "...";
             tmpeButton.tooltip = "TMPE settings";
@@ -191,6 +202,7 @@ namespace RoundaboutBuilder.UI
             cummulativeHeight = 0;
             m_bottomSection = AddUIComponent<UIPanel>();
 
+            // "Keep open" checkbox
             var keepOpen = UIUtil.CreateCheckBox(m_bottomSection);
             keepOpen.name = "RAB_keepOpen";
             keepOpen.label.text = "Keep open";
