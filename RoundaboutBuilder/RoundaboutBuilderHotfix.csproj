@@ -54,9 +54,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>F:\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
-    </Reference>
     <Reference Include="NetworkAnarchy">
       <HintPath>F:\SteamLibrary\steamapps\workshop\content\255710\2862881785\NetworkAnarchy.dll</HintPath>
     </Reference>
@@ -110,12 +107,9 @@
     <Compile Include="UI\Windows.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="README.txt" />
+    <Content Include="README.md" />
     <Content Include="Resources\UUI.png" />
     <EmbeddedResource Include="Resources\sprites.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--<PropertyGroup>
@@ -125,6 +119,7 @@ xcopy /y "$(TargetPath)" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addo
   </PropertyGroup>-->
   <ItemGroup>
     <None Remove="Resources\UUI.png" />
+    <None Include="App.config" />
   </ItemGroup>
 
   <Target Name="DeployToModDirectory" AfterTargets="Build">

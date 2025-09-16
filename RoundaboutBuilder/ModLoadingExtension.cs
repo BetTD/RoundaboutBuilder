@@ -24,13 +24,13 @@ namespace RoundaboutBuilder
         public static bool fineRoadToolDetected = false;
         public static bool networkAnarchyDetected = false;
         public static bool undoItDetected = false;
-        public static bool unifiedUiDetected = false;
+        private static bool unifiedUiDetected = false;
 
-        public static readonly UInt64[] TMPE_IDs = { 583429740, 1637663252, 1806963141 };
-        public static readonly UInt64[] FINE_ROAD_ANARCHY_IDs = { 651322972, 1844442251 };
-        public static readonly UInt64[] NETWORK_ANARCHY_IDs = { 2862881785 };
-        public static readonly UInt64[] UNO_IT_IDs = { 1890830956 };
-        public static readonly UInt64[] UNIFIED_UI_IDs = { 2966990700 };
+        private static readonly UInt64[] TMPE_IDs = { 583429740, 1637663252, 1806963141 };
+        private static readonly UInt64[] FINE_ROAD_ANARCHY_IDs = { 651322972, 1844442251 };
+        private static readonly UInt64[] NETWORK_ANARCHY_IDs = { 2862881785 };
+        private static readonly UInt64[] UNDO_IT_IDs = { 1890830956 };
+        private static readonly UInt64[] UNIFIED_UI_IDs = { 2966990700 };
 
         // called when level loading begins
         public void OnCreated(ILoading loading)
@@ -57,7 +57,7 @@ namespace RoundaboutBuilder
                 {
                     fineRoadToolDetected = true;
                 }
-                else if (!undoItDetected && current.isEnabled && (current.name.Contains("UndoMod") || UNO_IT_IDs.Contains(current.publishedFileID.AsUInt64)))
+                else if (!undoItDetected && current.isEnabled && (current.name.Contains("UndoMod") || UNDO_IT_IDs.Contains(current.publishedFileID.AsUInt64)))
                 {
                     undoItDetected = true;
                 }
@@ -139,12 +139,13 @@ namespace RoundaboutBuilder
             {
                 UIWindow.instance.enabled = false;
             }
-            LevelLoaded = false;
 
             if (unifiedUiDetected)
             {
                 UIUtil.RemoveUUIButton();
             }
+            
+            LevelLoaded = false;
         }
 
         // called when unloading finished

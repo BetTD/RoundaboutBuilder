@@ -1,4 +1,10 @@
-﻿
+﻿# Roundabout Builder (UUI Fix)
+
+This is a fork of Roundabout Builder by Strad ([workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1625704117), source) with a fix for the missing UnifiedUI button in UUI Continued. Mod UI
+window is also wider to accommodate the longer road names found in certain languages. Original README.txt follows below.
+
+
+```
 Automatic Roundabout Builder by Strad
 Version RELEASE 1.3.0
 January 2019
@@ -54,3 +60,5 @@ Please leave any feedback! I am not an experienced programmer and probably I did
 USE AT YOUR OWN RISK!
 
 Steam workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=1625704117
+
+```
