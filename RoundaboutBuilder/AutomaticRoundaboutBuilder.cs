@@ -92,7 +92,7 @@ namespace RoundaboutBuilder
             // Probably useless
             try
             {
-                //WORKSHOP_FILE_ID = new PublishedFileId(1625704117uL);
+                WORKSHOP_FILE_ID = new PublishedFileId(3569819284uL);
             } catch
             {
                 Debug.Log("Error when assigning Workshop File ID");
